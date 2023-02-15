@@ -75,6 +75,11 @@ export default {
             <template v-if="temp.imagesUrl"> 
             <button type="button" class="btn btn-outline-primary" @click="temp.imagesUrl.push('')" v-if="temp.imagesUrl.length === 0  || temp.imagesUrl[temp.imagesUrl.length-1]">新增圖片</button>
             </template>
+            <template v-else> 
+            <button type="button" class="btn btn-outline-primary" @click="temp.imagesUrl=['']">新增圖片</button>
+            </template>
+
+
             
                 
 
