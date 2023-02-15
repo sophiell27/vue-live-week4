@@ -37,7 +37,7 @@ const app = createApp({
         })
         .catch((err) => {
           confirm("請重新登入");
-          window.location = "admin-login.html";
+          window.location = "index.html";
         });
     },
     getProducts(page=1) {
