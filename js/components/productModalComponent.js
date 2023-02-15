@@ -66,23 +66,12 @@ export default {
                 <input type="file" class="form-control " id="spareImg" @change="uploadFile('spareInput')" ref="spareInput">
                 </template>
                 <img :src="temp.imagesUrl[index]" alt="" class="img-fluid mb-1"/>
-                <button type='button' class="btn btn-outline-danger mb-3 w-100"   @click="temp.imagesUrl.splice(index,1)">刪除圖片</button >
+                <button type='button' class="btn btn-outline-danger mb-3 w-100"   @click="temp.imagesUrl.splice(index,1)" v-if="temp.imagesUrl[index].length">刪除圖片</button >
              </div>
              
-            
-             
-
-            <template v-if="temp.imagesUrl"> 
+            <template v-if="Array.isArray(temp.imagesUrl)"> 
             <button type="button" class="btn btn-outline-primary" @click="temp.imagesUrl.push('')" v-if="temp.imagesUrl.length === 0  || temp.imagesUrl[temp.imagesUrl.length-1]">新增圖片</button>
             </template>
-            <template v-else> 
-            <button type="button" class="btn btn-outline-primary" @click="temp.imagesUrl=['']">新增圖片</button>
-            </template>
-
-
-            
-                
-
              </div>
 
           <div class="col-8">

@@ -13,7 +13,7 @@ const app = createApp({
       productModal: "",
       delModal:"",
       temp: {
-        imagesUrl: []
+        imagesUrl: ['']
       }
     };
   },
@@ -55,6 +55,7 @@ const app = createApp({
     editProduct(){
       let baseurl;
       let method;
+      console.log(this.temp)
       if (this.temp.id){
         baseurl = `${url}api/${path}/admin/product/${this.temp.id}`;
         method = "put"
@@ -68,10 +69,11 @@ const app = createApp({
                 console.log("成功編輯產品");
                 this.productModal.hide();
                 this.getProducts();
-                this.temp= {};
+                this.temp= {imagesUrl:[]};
             })
             .catch(err => {
-                console.log(err.response.data.message)
+              console.log("無法編輯")
+                // console.log(err.response.data.message)
             });
     }, 
     delProduct(){
@@ -80,6 +82,7 @@ const app = createApp({
             console.log("已成功刪除產品")
             this.delModal.hide();
             this.getProducts();
+            console.log(this.products)
         })
         .catch(err => {
             console.log("刪除產品失敗")
@@ -87,15 +90,17 @@ const app = createApp({
     },
     showModal(status,product){
        if (status === "newProduct"){
-        this.temp = {imagesUrl: []};
+        this.temp = {imagesUrl: ['']};
         this.productModal.show();
        }else if (status === "editProduct"){
         this.temp = {...product};
+        console.log(this.temp.imagesUrl)
         this.productModal.show();
        }else if (status === "delProduct"){
         this.temp = product;
         this.delModal.show();
        }
+       console.log(this.temp)
     }
     
   },
