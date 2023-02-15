@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="modal" tabindex="-1" ref="delModal" >
+            <del-modal-component :product="temp" @emit-del="delProduct"></del-modal-component>
+          </div>
+
+        <div class="d-flex justify-content-end my-3">
+            <button type="button" class="btn btn-primary" @click="showModal('newProduct')">建立新的產品</button>
+        </div>
+        <div class="modal" tabindex="-1" ref="productModal">
+            <product-modal-component  :temp="temp" :edit-product="editProduct"></product-modal-component>
+          </div>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>分類</th>
+                    <th>產品名稱</th>
+                    <th>原價</th>
+                    <th>售價</th>
+                    <th>是否啟用</th>
+                    <th>編輯</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="product in products" :key="product.id">
+                    <th>{{product.category}}</th>
+                    <th>{{product.title}}</th>
+                    <th>{{product.origin_price}}</th>
+                    <th>{{product.price}}</th>
+                    <th :class="{'text-success':product.is_enabled, 'text-danger':!product.is_enabled}">{{product.is_enabled? "啟用": "不啟用"}}</th>
+                    <th>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary" @click="showModal('editProduct',product)">編輯</button>
+                            <button class="btn btn-outline-danger" @click="showModal('delProduct',product)">刪除</button>
+                        </div>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+
+        <pagination-component :pagination="pagination" @show-page="getProducts"></pagination-component>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="./js/admin-products.js" type="module"></script>
+</body>
+</html>
